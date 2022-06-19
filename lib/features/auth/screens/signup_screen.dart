@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mool_attendance/common/widgets/custom_button.dart';
 import 'package:mool_attendance/common/widgets/custom_textfield.dart';
 import 'package:mool_attendance/features/auth/screens/login_screen.dart';
+import 'package:mool_attendance/features/auth/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup-screen';
@@ -9,15 +10,25 @@ class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phonePANController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+    final AuthService authService = AuthService();
+
+
+   void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      phone: int.parse(_phonePANController.toString()),
+      password: _passwordController.text,
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    final _signInFormKey = GlobalKey<FormState>();
+    final _signUpFormKey = GlobalKey<FormState>();
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -52,7 +63,7 @@ class _LoginScreenState extends State<SignUpScreen> {
                   height: 196,
                 ),
                 Form(
-                    key: _signInFormKey,
+                    key: _signUpFormKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

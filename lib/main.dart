@@ -4,7 +4,6 @@ import 'package:mool_attendance/features/auth/screens/login_screen.dart';
 import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
 import 'package:mool_attendance/router.dart';
 import 'package:flutter/services.dart';
-import 'package:mool_attendance/page/fingerprint.dart';
 
 void main() {
   runApp(MyApp());

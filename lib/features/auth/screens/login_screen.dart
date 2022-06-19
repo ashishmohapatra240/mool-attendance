@@ -3,7 +3,7 @@ import 'package:mool_attendance/api/local_auth_api.dart';
 import 'package:mool_attendance/common/widgets/custom_button.dart';
 import 'package:mool_attendance/common/widgets/custom_textfield.dart';
 import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
-import 'package:mool_attendance/page/home_page.dart';
+import 'package:mool_attendance/features/home/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login-screen';
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (isAuthenticated) {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()),
+                                      builder: (context) => HomeScreen()),
                                 );
                               }
                             })
