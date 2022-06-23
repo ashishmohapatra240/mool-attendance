@@ -22,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
    void signUpUser() {
     authService.signUpUser(
       context: context,
-      phone: int.parse(_phonePANController.toString()),
+      phone: _phonePANController.text,
       password: _passwordController.text,
     );
   }
@@ -93,7 +93,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CustomButton(text: 'Sign Up', onTap: () async {})
+                        CustomButton(text: 'Sign Up', onTap: () async {
+                          if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                        })
                       ],
                     ))
               ],

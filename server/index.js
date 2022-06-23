@@ -7,7 +7,7 @@ const authRouter = require("./routes/auth.js");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const DB =
-  "mongodb+srv://mool123:mool123@cluster0.1cykt.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://mool123:test123@cluster0.1cykt.mongodb.net/?retryWrites=true&w=majority";
 
 //Middleware
 app.use(express.json());

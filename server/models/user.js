@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   phone: {
     required: true,
-    type: int,
+    type: String,
     trim: true,
     validate: {
       validator: (value) => {
