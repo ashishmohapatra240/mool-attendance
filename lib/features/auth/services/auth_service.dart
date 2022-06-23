@@ -15,11 +15,11 @@ class AuthService {
   //signup user
   void signUpUser({
     required BuildContext context,
-    required String phone,
+    required String pan,
     required String password,
   }) async {
     try {
-      User user = User(id: '', phone: '', password: password, token: '');
+      User user = User(id: '', pan: '', password: password, token: '');
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
@@ -44,21 +44,22 @@ class AuthService {
   //signin User
   void signInUser({
     required BuildContext context,
-    required String email,
+    required String pan,
     required String password,
   }) async {
     try {
+      User user = User(id: '', pan: '', password: password, token: '');
+
       http.Response res = await http.post(
-        Uri.parse('$uri/api/signin'),
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
+        Uri.parse('$uri/auth_check/validate/info'),
+        body: jsonEncode({"details": pan, "type": password}),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         },
       );
       print(res.body);
+      print('Hello World');
+
       httpErrorHandler(
           response: res,
           context: context,

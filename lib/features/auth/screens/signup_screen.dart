@@ -14,7 +14,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _phonePANController = TextEditingController();
+  final TextEditingController _panController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
     final AuthService authService = AuthService();
 
@@ -22,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
    void signUpUser() {
     authService.signUpUser(
       context: context,
-      phone: _phonePANController.text,
+      pan: _panController.text,
       password: _passwordController.text,
     );
   }
@@ -68,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextField(
-                          controller: _phonePANController,
+                          controller: _panController,
                           hintText: 'Phone Number/PAN Number',
                         ),
                         const SizedBox(

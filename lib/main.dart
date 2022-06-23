@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:mool_attendance/constants/global_variables.dart';
 import 'package:mool_attendance/features/auth/screens/login_screen.dart';
 import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
+import 'package:mool_attendance/provider/user_provider.dart';
 import 'package:mool_attendance/router.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

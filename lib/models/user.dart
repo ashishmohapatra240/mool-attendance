@@ -2,13 +2,13 @@ import 'dart:convert';
 
 class User {
   final String id;
-  final String phone;
+  final String pan;
   final String password;
   final String token;
 
   User({
     required this.id,
-    required this.phone,
+    required this.pan,
     required this.password,
     required this.token,
   });
@@ -16,7 +16,7 @@ class User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'phone': phone,
+      'pan': pan,
       'password': password,
       'token': token,
     };
@@ -25,7 +25,7 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map['_id'] ?? '',
-      phone: map['phone'] ?? '',
+      pan: map['pan'] ?? '',
       password: map['password'] ?? '',
       token: map['token'] ?? '',
     );

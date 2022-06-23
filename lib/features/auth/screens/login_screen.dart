@@ -3,6 +3,7 @@ import 'package:mool_attendance/api/local_auth_api.dart';
 import 'package:mool_attendance/common/widgets/custom_button.dart';
 import 'package:mool_attendance/common/widgets/custom_textfield.dart';
 import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
+import 'package:mool_attendance/features/auth/services/auth_service.dart';
 import 'package:mool_attendance/features/home/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,11 +16,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phonePANController = TextEditingController();
+    AuthService authService = AuthService();
+
+  final TextEditingController _panController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+    void signInUser() {
+    authService.signInUser(
+      context: context,
+      pan: _panController.text,
+      password: _passwordController.text,
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    final _signInFormKey = GlobalKey<FormState>();
+        final GlobalKey<ScaffoldState> _signInFormKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -65,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextField(
-                          controller: _phonePANController,
+                          controller: _panController,
                           hintText: 'Phone Number/PAN Number',
                         ),
                         const SizedBox(
@@ -96,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               final isAuthenticated =
                                   await LocalAuthApi.authenticate();
                               if (isAuthenticated) {
+                                signInUser();
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => HomeScreen()),
