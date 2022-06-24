@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:mool_attendance/constants/global_variables.dart';
 import 'package:mool_attendance/features/auth/screens/login_screen.dart';
@@ -5,6 +6,7 @@ import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
 import 'package:mool_attendance/provider/user_provider.dart';
 import 'package:mool_attendance/router.dart';
 import 'package:flutter/services.dart';
+import 'package:mool_attendance/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -32,7 +34,28 @@ class MyApp extends StatelessWidget {
             primary: GlobalVariables.primaryColor,
           )),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: SignUpScreen(),
+      home: AnimatedSplashScreen(
+        splash: SizedBox(
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/Splash_Screen.png",),
+                  fit: BoxFit.cover),
+            ),
+            child: Center(
+              child: Container(
+                child: Image(
+                  image: AssetImage("assets/Logo.png"),
+                ),
+                height: 33.1,
+                width: 148.63,
+              ),
+            ),
+          ),
+        ),
+        duration: 3000,
+        nextScreen: LoginScreen(),
+      ),
     );
   }
 }

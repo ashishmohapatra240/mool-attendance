@@ -29,12 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _panController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-    /* TODO:
-          1. change this function to async 
-          2. Create a variable and store the response 
-          3. Use the code in auth_service.dart using that variable
-          4. remove the context  
-      */ 
+ 
     Future<void> signInUser() async {
     try {
       http.Response res = await authService.signInUser(
