@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // String uri = 'http://127.0.0.1:5000';
 String uri = 'https://apidev.moolfinance.com/api';
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class GlobalVariables {
   // COLORS

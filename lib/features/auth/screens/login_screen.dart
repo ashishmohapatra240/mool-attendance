@@ -1,10 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mool_attendance/api/local_auth_api.dart';
 import 'package:mool_attendance/common/widgets/custom_button.dart';
 import 'package:mool_attendance/common/widgets/custom_textfield.dart';
+import 'package:mool_attendance/constants/error_handling.dart';
+import 'package:mool_attendance/constants/utils.dart';
 import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
 import 'package:mool_attendance/features/auth/services/auth_service.dart';
 import 'package:mool_attendance/features/home/screens/home_screen.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:mool_attendance/provider/user_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login-screen';
@@ -20,18 +29,54 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _panController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-    void signInUser() {
-    authService.signInUser(
-      context: context,
-      pan: _panController.text,
+    /* TODO:
+          1. change this function to async 
+          2. Create a variable and store the response 
+          3. Use the code in auth_service.dart using that variable
+          4. remove the context  
+      */ 
+    Future<void> signInUser() async {
+    try {
+      http.Response res = await authService.signInUser(
+      username: _panController.text,
       password: _passwordController.text,
     );
+    httpErrorHandler(
+          response: res,
+          context: context,
+          onSuccess: () async {
+            dynamic decodedRes = jsonDecode(res.body);
+            if(decodedRes['success']) {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+            
+            await prefs.setString(
+                'x-auth-token', decodedRes['data']['auth']);
+
+            if (!mounted) return;
+            Provider.of<UserProvider>(
+              context, listen: false).setUser(jsonEncode(decodedRes['data']['user']));
+            showSnackbar(context, 'Signin Scuccessful');
+            Navigator.pushNamedAndRemoveUntil(
+                context, HomeScreen.routeName, (route) => false);
+            } else {
+              showSnackbar(context, decodedRes['message']);
+            }
+          });
+            
+    } catch (e) {
+      if (!mounted) return;
+      showSnackbar(context, e.toString());
+    }
+    
   }
   @override
   Widget build(BuildContext context) {
-        final GlobalKey<ScaffoldState> _signInFormKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+    final _signInFormKey = GlobalKey<FormState>();
     return Scaffold(
+             key: _scaffoldKey,
+
         resizeToAvoidBottomInset: false,
         body: Container(
           constraints: BoxConstraints.expand(),
@@ -107,15 +152,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               final isAuthenticated =
                                   await LocalAuthApi.authenticate();
                               if (isAuthenticated) {
-                                signInUser();
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()),
-                                );
+                                await signInUser();
+                                // Navigator.of(context).pushReplacement(
+                                //   MaterialPageRoute(
+                                //       builder: (context) => HomeScreen()),
+                                // );
                               }
-                            })
+                            },)
                       ],
-                    ))
+                    ),)
               ],
             ),
           ),
