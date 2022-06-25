@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mool_attendance/features/auth/screens/login_screen.dart';
+import 'package:mool_attendance/features/auth/screens/signin_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: ((context) => LoginScreen()),
+        builder: ((context) => SignInScreen()),
       ),
     );
   }
@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
         child: Text('Splash Screen'),
       ),

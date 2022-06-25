@@ -1,8 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mool_attendance">
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+<queries>
+  <!-- If your app checks for SMS support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="sms" />
+  </intent>
+  <!-- If your app checks for call support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="tel" />
+  </intent>
+</queries>
    <application
-        android:label="mool_attendance"
+        android:label="Mool"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

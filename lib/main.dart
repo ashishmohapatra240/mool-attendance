@@ -1,8 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:mool_attendance/constants/global_variables.dart';
-import 'package:mool_attendance/features/auth/screens/login_screen.dart';
-import 'package:mool_attendance/features/auth/screens/signup_screen.dart';
+import 'package:mool_attendance/features/auth/screens/signin_screen.dart';
 import 'package:mool_attendance/provider/user_provider.dart';
 import 'package:mool_attendance/router.dart';
 import 'package:flutter/services.dart';
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         duration: 3000,
-        nextScreen: LoginScreen(),
+        nextScreen: SignInScreen(),
       ),
     );
   }

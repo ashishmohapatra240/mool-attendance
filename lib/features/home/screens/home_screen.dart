@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mool_attendance/common/widgets/custom_button.dart';
 import 'package:mool_attendance/provider/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -12,10 +14,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-WebView takeToWebsite() {
-  return WebView(
-    initialUrl: 'https://moolfinance.com/',
-  );
+void takeToWebsite() async {
+  final url = 'https://moolfinance.com/';
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -26,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
           body: Padding(
         padding: const EdgeInsets.fromLTRB(28, 48, 28, 36),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          shrinkWrap: true,
           children: [
             const Text(
               'Hello 👋🏻,',
