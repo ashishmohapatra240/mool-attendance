@@ -36,15 +36,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         label: Text(
           widget.hintText,
-          style: TextStyle(color: Color(0xffC1C1C1)),
+          style: TextStyle(
+            color: _focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8),
+            // TextStyle(color: Color(0xffC1C1C1)),
+          ),
         ),
         labelStyle: TextStyle(
-            color: _focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8)),
+          color: _focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8),
+        ),
         hintText: widget.hintText,
         border: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.black38,
           ),
+        ),
+        hintStyle: const TextStyle(
+          color: Color(0xffC1C1C1),
+          fontSize: 14.0,
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
@@ -54,7 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         suffixIcon: ((widget.isPass)
             ? IconButton(
                 icon: Icon(
-                  passwordVisible ? Icons.visibility_off : Icons.visibility,
+                  !passwordVisible ? Icons.visibility_off : Icons.visibility,
                   color: Color(0xffC1C1C1),
                 ),
                 onPressed: () {

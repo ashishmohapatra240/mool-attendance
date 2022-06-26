@@ -80,6 +80,7 @@ class _LoginScreenState extends State<SignInScreen> {
               padding: const EdgeInsets.all(25),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
@@ -97,9 +98,10 @@ class _LoginScreenState extends State<SignInScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 196,
-                  ),
+
+                  //  SizedBox(
+                  //   height: MediaQuery.of(context).size.height/10,
+                  // ),
                   Form(
                     key: _signInFormKey,
                     child: Column(

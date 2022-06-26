@@ -26,40 +26,24 @@ class MyApp extends StatelessWidget {
       title: 'Mool Attendance',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-          appBarTheme: const AppBarTheme(elevation: 0),
-          iconTheme: IconThemeData(color: Colors.black),
-          colorScheme: const ColorScheme.light(
-            primary: GlobalVariables.primaryColor,
-          )),
+        fontFamily: 'ProximNova',
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        appBarTheme: const AppBarTheme(elevation: 0),
+        iconTheme: IconThemeData(color: Colors.black),
+        colorScheme: const ColorScheme.light(
+          primary: GlobalVariables.primaryColor,
+        ),
+      ),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: AnimatedSplashScreen(
-        splash: SizedBox(
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/Splash_Screen.png",),
-                  fit: BoxFit.cover),
-            ),
-            child: Center(
-              child: Container(
-                child: Image(
-                  image: AssetImage("assets/Logo.png"),
-                ),
-                height: 33.1,
-                width: 148.63,
-              ),
-            ),
-          ),
-        ),
-        duration: 3000,
+        splash: SplashScreen(),
+        splashIconSize: double.infinity,
+        duration: 8000,
         nextScreen: SignInScreen(),
       ),
     );
   }
 }
-
-
 
 // Future main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
