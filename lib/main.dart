@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
         splash: SplashScreen(),
         splashIconSize: double.infinity,
-        duration: 8000,
+        duration: 3000,
         nextScreen: SignInScreen(),
       ),
     );
