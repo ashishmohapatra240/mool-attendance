@@ -31,11 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.fromLTRB(28, 48, 28, 28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // shrinkWrap: true,
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,53 +54,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              const Expanded(
-                flex: 5,
-                child: Image(
-                  image: AssetImage("assets/Working_Illustration.png"),
+
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: [
+                    const Image(
+                      image: AssetImage("assets/Working_Illustration.png"),
+                    ),
+                    SizedBox(height: 30),
+                    // Center(
+                    //   child:
+                    Column(
+                      children: const [
+                        Text(
+                          'This app is under construction ⚒️',
+                          style: TextStyle(
+                              color: Color(0xff222222),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'While we finish the whole app... why',
+                          style: TextStyle(
+                              color: Color(0xff5F5E63),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        Text(
+                          'don’t you get to know about us a bit?',
+                          style: TextStyle(
+                              color: Color(0xff5F5E63),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                    // ),
+                  ],
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: Column(
-                    children: const [
-                      Text(
-                        'This app is under construction ⚒️',
-                        style: TextStyle(
-                            color: Color(0xff222222),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        'While we finish the whole app... why',
-                        style: TextStyle(
-                            color: Color(0xff5F5E63),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        'don’t you get to know about us a bit?',
-                        style: TextStyle(
-                            color: Color(0xff5F5E63),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  height: 35,
-                  child: CustomButton(
-                    text: 'Take me to the website',
-                    onTap: (() => {takeToWebsite()}),
-                  ),
+              // child:
+              Container(
+                child: CustomButton(
+                  text: 'Take me to the website',
+                  onTap: (() => {takeToWebsite()}),
                 ),
               ),
             ],

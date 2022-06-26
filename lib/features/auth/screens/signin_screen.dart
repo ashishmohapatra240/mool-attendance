@@ -25,7 +25,9 @@ class SignInScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<SignInScreen> {
   AuthService authService = AuthService();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final _signInFormKey = GlobalKey<FormState>();
   final TextEditingController _panController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -63,14 +65,13 @@ class _LoginScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    final _signInFormKey = GlobalKey<FormState>();
     return Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/Login_Design.png"),
@@ -85,9 +86,9 @@ class _LoginScreenState extends State<SignInScreen> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       SizedBox(
-                        height: 196,
+                        height: MediaQuery.of(context).size.height / 4.4,
                       ),
                       Text(
                         'Hey there,\nWelcome',
@@ -109,14 +110,16 @@ class _LoginScreenState extends State<SignInScreen> {
                       children: [
                         CustomTextField(
                           controller: _panController,
-                          hintText: 'Phone Number/PAN Number', isPass: false,
+                          hintText: 'Phone Number/PAN Number',
+                          isPass: false,
                         ),
                         const SizedBox(
                           height: 30,
                         ),
                         CustomTextField(
                           controller: _passwordController,
-                          hintText: 'Enter your Password', isPass: true,
+                          hintText: 'Enter your Password',
+                          isPass: true,
                         ),
                         TextButton(
                           onPressed: () {},
@@ -128,23 +131,23 @@ class _LoginScreenState extends State<SignInScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 30,
                         ),
                         CustomButton(
-                          text: 'Sign in',
-                          onTap: () async {
-                            // final isAuthenticated =
-                            //     await LocalAuthApi.authenticate();
-                            // if (isAuthenticated) {
+                            text: 'Login',
+                            onTap: () async {
+                              // final isAuthenticated =
+                              //     await LocalAuthApi.authenticate();
+                              // if (isAuthenticated) {
                               await signInUser();
                               // Navigator.of(context).pushReplacement(
                               //   MaterialPageRoute(
                               //       builder: (context) => HomeScreen()),
                               // );
                             }
-                          // },
-                        )
+                            // },
+                            )
                       ],
                     ),
                   )
