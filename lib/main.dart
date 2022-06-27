@@ -5,6 +5,7 @@ import 'package:mool_attendance/features/auth/screens/signin_screen.dart';
 import 'package:mool_attendance/provider/user_provider.dart';
 import 'package:mool_attendance/router.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:mool_attendance/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => generateRoute(settings),
       home: AnimatedSplashScreen(
         splash: SplashScreen(),
+        pageTransitionType: PageTransitionType.fade,
+        splashTransition: SplashTransition.fadeTransition,
         splashIconSize: double.infinity,
         duration: 3000,
         nextScreen: SignInScreen(),

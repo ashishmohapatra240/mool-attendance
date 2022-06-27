@@ -24,18 +24,22 @@ void takeToWebsite() async {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     final user = Provider.of<UserProvider>(context).user;
     return SafeArea(
       child: Scaffold(
         body: Container(
-          padding: const EdgeInsets.fromLTRB(28, 48, 28, 28),
+          padding: EdgeInsets.fromLTRB(
+              width * 0.06, height * 0.04, width * 0.06, height * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // shrinkWrap: true,
             children: [
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               Expanded(
-                flex: 3,
+                flex: 7,
                 child: Column(
                   children: [
                     const Image(
