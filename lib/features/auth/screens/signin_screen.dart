@@ -33,54 +33,58 @@ class _LoginScreenState extends State<SignInScreen> {
   dynamic decodedRes;
 
   Future<void> signInUser() async {
+    CustomTextField.errorVis = true;
     try {
       http.Response res = await authService.signInUser(
         username: _panController.text,
         password: _passwordController.text,
       );
       httpErrorHandler(
-          response: res,
-          context: context,
-          onSuccess: () async {
-            decodedRes = jsonDecode(res.body);
-            if (decodedRes['success']) {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
+        response: res,
+        context: context,
+        onSuccess: () async {
+          decodedRes = jsonDecode(res.body);
+          if (decodedRes['success']) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
 
-              await prefs.setString('x-auth-token', decodedRes['data']['auth']);
+            await prefs.setString('x-auth-token', decodedRes['data']['auth']);
 
-              if (!mounted) return;
-              Provider.of<UserProvider>(context, listen: false)
-                  .setUser(jsonEncode(decodedRes['data']['user']));
-              // showSnackbar(context, 'Signin Scuccessful');
-              Navigator.pushNamedAndRemoveUntil(
-                  context, HomeScreen.routeName, (route) => false);
-            } else {
-              String message;
-              // print(decodedRes['message'] + "3bfuwfhr");
-              switch (decodedRes['message'].toString()) {
-                case 'WRONG_CREDENTIALS':
-                  message = "Invalid credentials";
-                  break;
-                case 'username_FIELD_REQUIRED':
-                  message = "Enter username";
-                  break;
-                case 'password_FIELD_REQUIRED':
-                  message = 'Enter password';
-                  break;
-                case 'Sorry user not exsist.':
-                  message = "Invalid username";
-                  break;
-                default:
-                  message = "Login Failed";
-              }
-              showSnackbar(context, message);
-              setState(() {
-                // user_valid = _userErrorText;
-                // pass_valid = _passErrorText;
-              });
-              // decodedRes = null;
+            if (!mounted) return;
+            Provider.of<UserProvider>(context, listen: false)
+                .setUser(jsonEncode(decodedRes['data']['user']));
+            // showSnackbar(context, 'Signin Scuccessful');
+            Navigator.pushNamedAndRemoveUntil(
+                context, HomeScreen.routeName, (route) => false);
+          } else {
+            String message;
+            // print(decodedRes['message'] + "3bfuwfhr");
+            switch (decodedRes['message'].toString()) {
+              case 'WRONG_CREDENTIALS':
+                message = "Invalid credentials";
+                break;
+              case 'username_FIELD_REQUIRED':
+                message = "Enter username";
+                break;
+              case 'password_FIELD_REQUIRED':
+                message = 'Enter password';
+                break;
+              case 'Sorry user not exsist.':
+                message = "Invalid username";
+                break;
+              default:
+                message = "Login Failed";
             }
-          });
+            // showSnackbar(context, message);
+            setState(() {
+              // user_valid = _userErrorText;
+              // pass_valid = _passErrorText;
+            });
+          }
+          // decodedRes = null;
+          // print(decodedRes);
+          // print("==========================");
+        },
+      );
     } catch (e) {
       if (!mounted) return;
       showSnackbar(context, "Couldn't connect to the server.");

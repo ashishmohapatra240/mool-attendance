@@ -4,6 +4,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final bool isPass;
+  static bool errorVis = true;
   var errText;
   CustomTextField(
       {Key? key,
@@ -22,7 +23,6 @@ bool passwordVisible = true;
 
 class _CustomTextFieldState extends State<CustomTextField> {
   FocusNode _focusNode = new FocusNode();
-
   void _requestFocus() {
     setState(() {
       FocusScope.of(context).requestFocus(_focusNode);
@@ -37,48 +37,46 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       focusNode: _focusNode,
       onTap: () {
+        // errorVis = false;
         _requestFocus();
-        if (widget.errText() != null)
-          setState(() {
-            widget.errText = () {};
-          });
+        // if (widget.errText() != null)
+        //   setState(() {
+        //     widget.errText = () {};
+        //   });
       },
       onEditingComplete: () {
         _requestFocus();
-        if (widget.errText() != null)
-          setState(() {
-            widget.errText = () {};
-          });
+        // if (widget.errText() != null)
+        //   setState(() {
+        //     widget.errText = () {};
+        //   });
       },
       onChanged: (_) {
         setState(
           () {
-            if (widget.errText() != null) widget.errText = () {};
+            if (widget.errText() != null) CustomTextField.errorVis = false;
+            // widget.errText = () {};
             buttonVisible = widget.controller.text.length > 0;
           },
         );
       },
       controller: widget.controller,
-      // validator: (_) {
-      //   print("step 0========");
-      //   return widget.errText();
-      // },
       obscureText: widget.isPass && passwordVisible,
       decoration: InputDecoration(
-        errorText: widget.errText(),
+        errorText: CustomTextField.errorVis ? widget.errText() : null,
         label: Text(
           widget.hintText,
           style: TextStyle(
-            color: widget.errText() == null
-                ? (_focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8))
-                : Colors.red,
+            color: (widget.errText() != null && CustomTextField.errorVis)
+                ? Colors.red
+                : (_focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8)),
             // TextStyle(color: Color(0xffC1C1C1)),
           ),
         ),
         labelStyle: TextStyle(
-          color: widget.errText() == null
-              ? (_focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8))
-              : Colors.red,
+          color: (widget.errText() != null && CustomTextField.errorVis)
+              ? Colors.red
+              : (_focusNode.hasFocus ? Color(0xff405cd2) : Color(0xffDCDFE8)),
         ),
         hintText: widget.hintText,
         border: const OutlineInputBorder(
